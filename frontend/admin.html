@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - EduAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .sidebar {
+            background-color: #1a365d;
+            min-height: 100vh;
+        }
+        .content {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="flex">
+    <!-- Sidebar -->
+    <div class="sidebar w-64 text-white p-4">
+        <div class="text-2xl font-bold mb-8">EduAI Admin</div>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center hover:bg-blue-700 p-2 rounded">
+                        <i class="fas fa-tachometer-alt mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center hover:bg-blue-700 p-2 rounded">
+                        <i class="fas fa-newspaper mr-2"></i>
+                        Bài viết
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center hover:bg-blue-700 p-2 rounded">
+                        <i class="fas fa-users mr-2"></i>
+                        Người dùng
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="#" class="flex items-center hover:bg-blue-700 p-2 rounded">
+                        <i class="fas fa-cog mr-2"></i>
+                        Cài đặt
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content flex-1 p-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">Dashboard</h1>
+            <div class="flex items-center">
+                <span class="mr-4">Admin</span>
+                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Đăng xuất
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500">Tổng số bài viết</div>
+                <div class="text-3xl font-bold" id="totalPosts">0</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500">Tổng số người dùng</div>
+                <div class="text-3xl font-bold" id="totalUsers">0</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500">Lượt xem hôm nay</div>
+                <div class="text-3xl font-bold" id="todayViews">0</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500">Tổng tương tác</div>
+                <div class="text-3xl font-bold" id="totalInteractions">0</div>
+            </div>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="p-6 border-b">
+                <h2 class="text-xl font-bold">Bài viết gần đây</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tiêu đề</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tác giả</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Danh mục</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lượt xem</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày đăng</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="postsTable">
+                        <!-- Posts will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Users -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-6 border-b">
+                <h2 class="text-xl font-bold">Người dùng gần đây</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tên người dùng</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vai trò</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày tham gia</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="usersTable">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html> 

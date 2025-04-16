@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAI Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            margin: 10px;
+        }
+        .btn-get-started {
+            background-color: #fff;
+            color: #0d6efd;
+            border: 2px solid #fff;
+        }
+        .btn-get-started:hover {
+            background-color: transparent;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .btn-explore {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        .btn-explore:hover {
+            background-color: #fff;
+            color: #0d6efd;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="hero-title">Chào mừng đến với EduAI Blog</h1>
+        <p class="hero-subtitle">Khám phá thế giới tri thức cùng cộng đồng học tập của chúng tôi</p>
+        <div class="btn-container">
+            <a href="/WEBSITE_EDUAI/register" class="btn btn-get-started">
+                <i class="fas fa-rocket me-2"></i>Bắt đầu ngay
+            </a>
+            <a href="/WEBSITE_EDUAI/posts" class="btn btn-explore">
+                <i class="fas fa-book-open me-2"></i>Khám phá bài viết
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Redirect to PHP homepage after a short delay
+        setTimeout(() => {
+            window.location.href = '/WEBSITE_EDUAI/frontend/pages/index.php';
+        }, 100);
+    </script>
+</body>
+</html> 

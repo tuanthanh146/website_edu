@@ -1,0 +1,12 @@
+{
+  "name": "eduai-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for EduAI Platform",
+  "scripts": {
+    "start": "live-server",
+    "dev": "live-server"
+  },
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+} 

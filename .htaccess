@@ -1,0 +1,39 @@
+RewriteEngine On
+RewriteBase /WEBSITE_EDUAI/
+
+# Handle API requests
+RewriteRule ^api/auth/google/?$ backend/api/auth/google.php [L,QSA]
+RewriteRule ^api/auth/google/callback/?$ backend/api/auth/google/callback.php [L,QSA]
+RewriteRule ^api/auth/facebook/?$ backend/api/auth/facebook.php [L,QSA]
+RewriteRule ^api/auth/facebook/callback/?$ backend/api/auth/facebook/callback.php [L,QSA]
+RewriteRule ^api/auth/register/?$ backend/api/auth/register.php [L,QSA]
+RewriteRule ^api/auth/login/?$ backend/api/auth/login.php [L,QSA]
+
+# Handle post-related routes
+RewriteRule ^posts/?$ frontend/pages/posts.php [L,QSA]
+RewriteRule ^post/([0-9]+)/?$ frontend/pages/post.php?id=$1 [L,QSA]
+RewriteRule ^create-post/?$ frontend/pages/create-post.php [L,QSA]
+
+# Handle authentication routes
+RewriteRule ^register/?$ frontend/pages/register.php [L,QSA]
+RewriteRule ^login/?$ frontend/pages/login.php [L,QSA]
+
+# Handle frontend requests
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ frontend/pages/index.php [QSA,L]
+
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# Error handling
+ErrorDocument 404 /WEBSITE_EDUAI/frontend/pages/404.php
+ErrorDocument 500 /WEBSITE_EDUAI/frontend/pages/500.php
+
+# Security headers
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy "strict-origin-when-cross-origin" 

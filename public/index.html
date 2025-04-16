@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAI Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="/" class="flex items-center py-4 px-2">
+                            <span class="font-semibold text-gray-500 text-lg">EduAI</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="/" class="py-4 px-2 text-green-500 border-b-4 border-green-500 font-semibold">Home</a>
+                    <a href="/forum" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Forum</a>
+                    <a href="/ai-tools" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">AI Tools</a>
+                    <a href="/about" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">About</a>
+                    <div id="authButtons" class="flex space-x-2">
+                        <button onclick="window.location.href='/login'" class="py-2 px-4 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Login</button>
+                        <button onclick="window.location.href='/register'" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">Register</button>
+                    </div>
+                    <div id="userMenu" class="hidden">
+                        <div class="relative">
+                            <button id="userMenuButton" class="flex items-center space-x-2 py-2 px-4">
+                                <img id="userAvatar" src="" alt="User" class="w-8 h-8 rounded-full">
+                                <span id="userName" class="text-gray-500 font-semibold"></span>
+                            </button>
+                            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                                <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                                <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <i class="fas fa-bars text-gray-500 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-green-50 py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-1/2">
+                    <h1 class="text-4xl font-bold text-gray-800 leading-tight mb-4">Welcome to EduAI Platform</h1>
+                    <p class="text-gray-600 mb-8">Your one-stop solution for AI-powered educational tools and community learning.</p>
+                    <button onclick="window.location.href='/ai-tools'" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition duration-300">Explore AI Tools</button>
+                </div>
+                <div class="md:w-1/2 mt-8 md:mt-0">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="AI Education" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Posts Section -->
+    <section class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Most Popular Discussions</h2>
+            <div id="popularPosts" class="grid md:grid-cols-3 gap-8">
+                <!-- Posts will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Section -->
+    <section class="bg-gray-100 py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our AI Tools</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-green-500 mb-4">
+                        <i class="fas fa-robot text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Text Generator</h3>
+                    <p class="text-gray-600">Generate creative and educational content with AI assistance.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-green-500 mb-4">
+                        <i class="fas fa-image text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Image Generator</h3>
+                    <p class="text-gray-600">Create educational images and illustrations using AI.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <div class="text-green-500 mb-4">
+                        <i class="fas fa-code text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Code Assistant</h3>
+                    <p class="text-gray-600">Get AI-powered help with your programming tasks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">EduAI</h3>
+                    <p class="text-gray-400">Empowering education through artificial intelligence.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="/forum" class="text-gray-400 hover:text-white transition duration-300">Forum</a></li>
+                        <li><a href="/ai-tools" class="text-gray-400 hover:text-white transition duration-300">AI Tools</a></li>
+                        <li><a href="/about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">AI Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/ai-tools/text-generator" class="text-gray-400 hover:text-white transition duration-300">Text Generator</a></li>
+                        <li><a href="/ai-tools/image-generator" class="text-gray-400 hover:text-white transition duration-300">Image Generator</a></li>
+                        <li><a href="/ai-tools/code-assistant" class="text-gray-400 hover:text-white transition duration-300">Code Assistant</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-gray-400"></i>
+                            <span class="text-gray-400">support@eduai.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 EduAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu hidden md:hidden bg-white shadow-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="/" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Home</a>
+            <a href="/forum" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Forum</a>
+            <a href="/ai-tools" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">AI Tools</a>
+            <a href="/about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">About</a>
+            <div id="mobileAuthButtons" class="pt-4 pb-3 border-t border-gray-700">
+                <button onclick="window.location.href='/login'" class="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Login</button>
+                <button onclick="window.location.href='/register'" class="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Register</button>
+            </div>
+            <div id="mobileUserMenu" class="hidden pt-4 pb-3 border-t border-gray-700">
+                <a href="/profile" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Profile</a>
+                <a href="/dashboard" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Dashboard</a>
+                <button onclick="logout()" class="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-green-500">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Check authentication status
+        async function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await fetch('/api/auth/me', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (response.ok) {
+                        const user = await response.json();
+                        showUserMenu(user);
+                    } else {
+                        localStorage.removeItem('token');
+                        showAuthButtons();
+                    }
+                } catch (error) {
+                    console.error('Error checking auth status:', error);
+                    showAuthButtons();
+                }
+            } else {
+                showAuthButtons();
+            }
+        }
+
+        // Show user menu
+        function showUserMenu(user) {
+            document.getElementById('authButtons').classList.add('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            document.getElementById('userName').textContent = user.username;
+            document.getElementById('userAvatar').src = user.profile?.avatar || 'https://via.placeholder.com/32';
+            
+            // Mobile menu
+            document.getElementById('mobileAuthButtons').classList.add('hidden');
+            document.getElementById('mobileUserMenu').classList.remove('hidden');
+        }
+
+        // Show auth buttons
+        function showAuthButtons() {
+            document.getElementById('authButtons').classList.remove('hidden');
+            document.getElementById('userMenu').classList.add('hidden');
+            
+            // Mobile menu
+            document.getElementById('mobileAuthButtons').classList.remove('hidden');
+            document.getElementById('mobileUserMenu').classList.add('hidden');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        }
+
+        // Load popular posts
+        async function loadPopularPosts() {
+            try {
+                const response = await fetch('/api/forum/popular');
+                if (response.ok) {
+                    const posts = await response.json();
+                    const postsContainer = document.getElementById('popularPosts');
+                    postsContainer.innerHTML = posts.map(post => `
+                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                            <h3 class="text-xl font-semibold mb-2">${post.title}</h3>
+                            <p class="text-gray-600 mb-4">${post.content.substring(0, 100)}...</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">${post.views} views</span>
+                                <a href="/forum/${post._id}" class="text-green-500 hover:text-green-600">Read more</a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading popular posts:', error);
+            }
+        }
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // User menu dropdown toggle
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        userMenuButton.addEventListener('click', () => {
+            userDropdown.classList.toggle('hidden');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadPopularPosts();
+        });
+    </script>
+</body>
+</html> 

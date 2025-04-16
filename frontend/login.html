@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - EduAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            min-height: 100vh;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="login-container w-full max-w-md p-8 rounded-xl shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">Chào mừng trở lại</h1>
+            <p class="text-gray-300">Đăng nhập để tiếp tục</p>
+        </div>
+
+        <form id="loginForm" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input type="email" id="email" name="email" required
+                        class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Nhập email của bạn">
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Mật khẩu</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input type="password" id="password" name="password" required
+                        class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Nhập mật khẩu của bạn">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input id="remember" name="remember" type="checkbox"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="remember" class="ml-2 block text-sm text-gray-300">
+                        Ghi nhớ đăng nhập
+                    </label>
+                </div>
+                <a href="#" class="text-sm text-blue-400 hover:text-blue-300">
+                    Quên mật khẩu?
+                </a>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                Đăng nhập
+            </button>
+
+            <div class="text-center">
+                <p class="text-gray-300">
+                    Chưa có tài khoản?
+                    <a href="/register.html" class="text-blue-400 hover:text-blue-300">Đăng ký ngay</a>
+                </p>
+            </div>
+        </form>
+
+        <div class="mt-8">
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-600"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-transparent text-gray-400">
+                        Hoặc đăng nhập bằng
+                    </span>
+                </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-3">
+                <button type="button" data-provider="google"
+                    class="w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-transparent text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <i class="fab fa-google text-red-500 mr-2"></i>
+                    Google
+                </button>
+                <button type="button" data-provider="facebook"
+                    class="w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-transparent text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <i class="fab fa-facebook text-blue-500 mr-2"></i>
+                    Facebook
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html> 

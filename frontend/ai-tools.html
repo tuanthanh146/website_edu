@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ AI - EduAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #001324;
+            color: #ffffff;
+        }
+        .hero-pattern {
+            background: radial-gradient(circle at center, #003366 0%, #001324 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1" fill="%23ffffff20"/></svg>');
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-opacity-20 bg-blue-900 backdrop-blur-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-3">
+                        <i class="fas fa-graduation-cap text-2xl text-blue-400"></i>
+                        <span class="text-xl font-semibold">EduAI</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="text-white hover:text-blue-400 transition">Trang chủ</a>
+                    <div class="relative group">
+                        <button class="text-white hover:text-blue-400 transition flex items-center">
+                            Danh mục
+                            <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                    <a href="/ai-tools.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center">
+                        <span>Công cụ AI</span>
+                        <i class="fas fa-robot ml-2"></i>
+                    </a>
+                    <a href="/posts.html" class="text-white hover:text-blue-400 transition">Bài viết</a>
+                    <button class="text-white hover:text-blue-400 transition">Đăng nhập</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- AI Tools Section -->
+    <section class="hero-pattern min-h-screen pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-20">
+            <h1 class="text-4xl font-bold text-center mb-12">Công cụ AI</h1>
+            
+            <!-- AI Tools Grid -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Text Generator -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:transform hover:scale-105 transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 p-3 rounded-lg">
+                            <i class="fas fa-font text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold ml-4">Trình tạo văn bản</h2>
+                    </div>
+                    <p class="text-gray-300 mb-6">Tạo nội dung văn bản tự động cho bài luận, báo cáo và các tài liệu học tập khác.</p>
+                    <div class="space-y-4">
+                        <textarea class="w-full bg-white bg-opacity-10 border border-blue-400 rounded-lg p-3 text-white" rows="4" placeholder="Nhập chủ đề hoặc từ khóa..."></textarea>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
+                            Tạo văn bản
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Image Generator -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:transform hover:scale-105 transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 p-3 rounded-lg">
+                            <i class="fas fa-image text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold ml-4">Trình tạo hình ảnh</h2>
+                    </div>
+                    <p class="text-gray-300 mb-6">Tạo hình ảnh minh họa và đồ họa cho bài thuyết trình và tài liệu học tập.</p>
+                    <div class="space-y-4">
+                        <textarea class="w-full bg-white bg-opacity-10 border border-blue-400 rounded-lg p-3 text-white" rows="4" placeholder="Mô tả hình ảnh bạn muốn tạo..."></textarea>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
+                            Tạo hình ảnh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Code Assistant -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:transform hover:scale-105 transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 p-3 rounded-lg">
+                            <i class="fas fa-code text-2xl"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold ml-4">Trợ lý lập trình</h2>
+                    </div>
+                    <p class="text-gray-300 mb-6">Nhận trợ giúp với mã nguồn, gỡ lỗi và giải thích các khái niệm lập trình.</p>
+                    <div class="space-y-4">
+                        <textarea class="w-full bg-white bg-opacity-10 border border-blue-400 rounded-lg p-3 text-white" rows="4" placeholder="Nhập câu hỏi hoặc mã nguồn của bạn..."></textarea>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
+                            Hỏi trợ lý
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="mt-20">
+                <h2 class="text-3xl font-bold text-center mb-12">Tính năng nổi bật</h2>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="bg-blue-600 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-bolt text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Nhanh chóng</h3>
+                        <p class="text-gray-300">Tạo nội dung chỉ trong vài giây</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-600 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-check-circle text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Chính xác</h3>
+                        <p class="text-gray-300">Kết quả chất lượng cao</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-600 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-lock text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Bảo mật</h3>
+                        <p class="text-gray-300">Dữ liệu được bảo vệ an toàn</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-600 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                            <i class="fas fa-sync text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Liên tục cập nhật</h3>
+                        <p class="text-gray-300">Luôn cải thiện và phát triển</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-opacity-20 bg-blue-900 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <span>SĐT: 0112345467</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div>
+                    <span>Email: abc@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
+</html> 

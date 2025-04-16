@@ -1,0 +1,26 @@
+{
+    "php.validate.enable": true,
+    "php.validate.run": "onType",
+    "php.validate.executablePath": "C:/xampp/php/php.exe",
+    "php.debug.ideKey": "VSCODE",
+    "php.debug.port": 9003,
+    "php.debug.xdebug": {
+        "path": "C:/xampp/php/ext/php_xdebug.dll"
+    },
+    "files.associations": {
+        "*.php": "php"
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+    "intelephense.environment.phpVersion": "8.2.0",
+    "intelephense.diagnostics.undefinedTypes": true,
+    "intelephense.diagnostics.undefinedFunctions": true,
+    "intelephense.diagnostics.undefinedConstants": true,
+    "intelephense.diagnostics.undefinedClassConstants": true,
+    "intelephense.diagnostics.undefinedMethods": true,
+    "intelephense.diagnostics.undefinedProperties": true,
+    "intelephense.diagnostics.undefinedVariables": true,
+    "intelephense.diagnostics.deprecated": true,
+    "intelephense.diagnostics.undefinedSymbols": true
+} 

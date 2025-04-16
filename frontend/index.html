@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduAI - Nền tảng học tập thông minh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #001324;
+            color: #ffffff;
+        }
+        .hero-pattern {
+            background: radial-gradient(circle at center, #003366 0%, #001324 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1" fill="%23ffffff20"/></svg>');
+            opacity: 0.1;
+        }
+        .circuit-bg {
+            position: relative;
+        }
+        .circuit-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background-image: url('data:image/svg+xml,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M10 50h80M50 10v80M30 30l40 40M30 70l40-40" stroke="%23ffffff20" stroke-width="1" fill="none"/></svg>');
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .blur-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, #001324);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-opacity-20 bg-blue-900 backdrop-blur-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-3">
+                        <i class="fas fa-graduation-cap text-2xl text-blue-400"></i>
+                        <span class="text-xl font-semibold">EduAI</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="/" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center">
+                        <span>Trang chủ</span>
+                        <i class="fas fa-home ml-2"></i>
+                    </a>
+                    <div class="relative group">
+                        <button class="text-white hover:text-blue-400 transition flex items-center">
+                            Danh mục
+                            <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                    <a href="/ai-tools.html" class="text-white hover:text-blue-400 transition">Công cụ AI</a>
+                    <a href="/posts.html" class="text-white hover:text-blue-400 transition">Bài viết</a>
+                    <button class="text-white hover:text-blue-400 transition" href = "login.html">Đăng nhập</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-pattern min-h-screen pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl font-bold mb-6">Học tập thông minh với AI</h1>
+                    <p class="text-xl text-gray-300 mb-8">Khám phá thế giới tri thức với sự hỗ trợ của trí tuệ nhân tạo. Tạo nội dung, hình ảnh và nhận trợ giúp lập trình chỉ trong vài giây.</p>
+                    <div class="flex space-x-4">
+                        <a href="/ai-tools.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition flex items-center">
+                            <span>Bắt đầu ngay</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="/posts.html" class="bg-white bg-opacity-10 hover:bg-opacity-20 text-white px-6 py-3 rounded-lg transition">
+                            Khám phá bài viết
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-600 p-6 rounded-xl">
+                                <i class="fas fa-font text-4xl mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-2">Tạo văn bản</h3>
+                                <p class="text-gray-300">Bài luận, báo cáo và tài liệu học tập</p>
+                            </div>
+                            <div class="bg-blue-600 p-6 rounded-xl">
+                                <i class="fas fa-image text-4xl mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-2">Tạo hình ảnh</h3>
+                                <p class="text-gray-300">Minh họa và đồ họa cho bài thuyết trình</p>
+                            </div>
+                            <div class="bg-blue-600 p-6 rounded-xl">
+                                <i class="fas fa-code text-4xl mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-2">Trợ lý học tập</h3>
+                                <p class="text-gray-300">Giúp bạn có thể giải và đưa ra các phương án phù hợp</p>
+                            </div>
+                            <div class="bg-blue-600 p-6 rounded-xl">
+                                <i class="fas fa-book text-4xl mb-4"></i>
+                                <h3 class="text-xl font-semibold mb-2">Bài viết </h3>
+                                <p class="text-gray-300">Những chia sẻ từ các bạn đã trải nghiệm Website</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Most Viewed Posts Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Bài viết được xem nhiều nhất</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Post 1 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl overflow-hidden hover:transform hover:scale-105 transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Post Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">Toán học</span>
+                            <span class="text-gray-400 text-sm ml-auto">2.5k lượt xem</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Cách giải phương trình bậc hai</h3>
+                        <p class="text-gray-300 mb-4">Hướng dẫn chi tiết cách giải phương trình bậc hai và các ví dụ minh họa...</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/32" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                <span class="text-sm">Nguyễn Văn A</span>
+                            </div>
+                            <a href="#" class="text-blue-400 hover:text-blue-300">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl overflow-hidden hover:transform hover:scale-105 transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Post Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">Vật lý</span>
+                            <span class="text-gray-400 text-sm ml-auto">1.8k lượt xem</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Định luật Newton</h3>
+                        <p class="text-gray-300 mb-4">Tìm hiểu về ba định luật Newton và ứng dụng trong thực tế...</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/32" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                <span class="text-sm">Trần Thị B</span>
+                            </div>
+                            <a href="#" class="text-blue-400 hover:text-blue-300">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 3 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl overflow-hidden hover:transform hover:scale-105 transition duration-300">
+                    <img src="https://via.placeholder.com/400x200" alt="Post Image" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">Hóa học</span>
+                            <span class="text-gray-400 text-sm ml-auto">1.2k lượt xem</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Bảng tuần hoàn các nguyên tố</h3>
+                        <p class="text-gray-300 mb-4">Khám phá bảng tuần hoàn và các tính chất của các nguyên tố...</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/32" alt="Author" class="w-8 h-8 rounded-full mr-2">
+                                <span class="text-sm">Lê Văn C</span>
+                            </div>
+                            <a href="#" class="text-blue-400 hover:text-blue-300">Đọc thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="/posts.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
+                    Xem tất cả bài viết
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-opacity-20 bg-blue-900 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <span>SĐT: 0112345467</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div>
+                    <span>Email: abc@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
