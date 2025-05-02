@@ -1,131 +1,117 @@
-# EduAI Platform
+# EduAI - Educational AI Platform
 
-A comprehensive educational platform powered by AI, featuring a forum, various AI tools, and user management system.
-
-## Features
-
-- User Authentication (Local & Google OAuth)
-- Forum with posts, comments, and likes
-- Multiple AI Tools:
-  - Text Generator
-  - Image Generator
-  - Code Assistant
-  - Text Summarizer
-  - Translator
-- Admin Panel for content and user management
-- Responsive design with Tailwind CSS
-- RESTful API architecture
+## Project Overview
+EduAI is an educational platform that leverages artificial intelligence to provide personalized learning experiences.
 
 ## Tech Stack
+- Backend: .NET Core 6.0
+- Frontend: HTML, CSS, JavaScript
+- Database: SQL Server
+- Authentication: JWT
+- Email: MailKit
+- Logging: Serilog
+- Rate Limiting: AspNetCoreRateLimit
 
-- Backend:
-  - Node.js
-  - Express.js
-  - MongoDB
-  - Passport.js (Authentication)
-  - JWT (JSON Web Tokens)
+## Project Structure
+```
+EduAI/
+├── EduAI.Backend/
+│   ├── Controllers/
+│   │   └── AuthController.cs
+│   ├── Models/
+│   │   └── UserModels.cs
+│   ├── Services/
+│   │   ├── EmailService.cs
+│   │   ├── LoggingService.cs
+│   │   └── TokenService.cs
+│   ├── Program.cs
+│   └── appsettings.json
+├── frontend/
+│   ├── js/
+│   │   └── auth.js
+│   ├── css/
+│   ├── components/
+│   └── index.html
+└── README.md
+```
 
-- Frontend:
-  - HTML5
-  - Tailwind CSS
-  - JavaScript (Vanilla)
-  - Font Awesome Icons
+## Features
+- User Authentication (Login/Register)
+- Email Verification
+- Password Reset
+- Two-Factor Authentication
+- JWT Token Management
+- Rate Limiting
+- Logging
+- CORS Configuration
+
+## API Endpoints
+### Authentication
+- POST `/api/auth/login` - User login
+- POST `/api/auth/register` - User registration
+- POST `/api/auth/verify-2fa` - Two-factor authentication
+- POST `/api/auth/verify-email` - Email verification
+- POST `/api/auth/forgot-password` - Password reset request
+- POST `/api/auth/reset-password` - Password reset
+
+## Configuration
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=EduAI;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "JwtSettings": {
+    "Secret": "your-secret-key",
+    "Issuer": "EduAI",
+    "Audience": "EduAI-Client",
+    "ExpiryMinutes": 60,
+    "RefreshTokenExpiryDays": 7
+  },
+  "EmailSettings": {
+    "SmtpServer": "smtp.gmail.com",
+    "SmtpPort": "587",
+    "Username": "your-email@gmail.com",
+    "Password": "your-app-password",
+    "FromEmail": "noreply@eduai.com",
+    "FromName": "EduAI"
+  }
+}
+```
 
 ## Installation
-
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/eduai-platform.git
-cd eduai-platform
+git clone https://github.com/your-username/EduAI.git
 ```
 
 2. Install dependencies:
 ```bash
-npm install
+cd EduAI
+dotnet restore
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
-```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/eduai
-JWT_SECRET=your_jwt_secret_key
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-CALLBACK_URL=http://localhost:3000/auth/google/callback
+3. Configure the database:
+```sql
+CREATE DATABASE EduAI;
 ```
 
-4. Start the development server:
+4. Update appsettings.json with your configuration
+
+5. Run the application:
 ```bash
-npm run dev
+dotnet run
 ```
-
-## Project Structure
-
-```
-eduai-platform/
-├── config/
-│   └── passport.js
-├── models/
-│   ├── User.js
-│   └── Post.js
-├── routes/
-│   ├── auth.js
-│   ├── forum.js
-│   ├── aiTools.js
-│   └── admin.js
-├── public/
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── forum.html
-│   └── ai-tools.html
-├── .env
-├── package.json
-├── server.js
-└── README.md
-```
-
-## API Endpoints
-
-### Authentication
-- POST /api/auth/register - Register a new user
-- POST /api/auth/login - Login user
-- GET /api/auth/google - Google OAuth login
-- GET /api/auth/me - Get current user
-
-### Forum
-- GET /api/forum - Get all posts
-- GET /api/forum/popular - Get most viewed posts
-- POST /api/forum - Create a new post
-- GET /api/forum/:id - Get a single post
-- POST /api/forum/:id/comments - Add a comment
-- POST /api/forum/:id/like - Like/unlike a post
-
-### AI Tools
-- GET /api/ai-tools/available-tools - Get list of available tools
-- POST /api/ai-tools/text-generator - Generate text
-- POST /api/ai-tools/image-generator - Generate image
-- POST /api/ai-tools/code-completion - Complete code
-- POST /api/ai-tools/text-summarizer - Summarize text
-- POST /api/ai-tools/translator - Translate text
-
-### Admin
-- GET /api/admin/users - Get all users
-- PUT /api/admin/users/:id/role - Update user role
-- GET /api/admin/posts - Get all posts
-- PUT /api/admin/posts/:id/status - Update post status
-- PUT /api/admin/posts/:id/pin - Pin/unpin post
-- DELETE /api/admin/posts/:id - Delete post
-- GET /api/admin/stats - Get site statistics
 
 ## Contributing
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+## Contact
+Your Name - your.email@example.com
+Project Link: [https://github.com/your-username/EduAI](https://github.com/your-username/EduAI) 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - EduAI</title>
+    <title>Login - EduAI</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -34,8 +34,8 @@
 <body class="flex items-center justify-center p-4">
     <div class="login-container w-full max-w-md p-8 rounded-xl shadow-2xl">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-white mb-2">Chào mừng trở lại</h1>
-            <p class="text-gray-300">Đăng nhập để tiếp tục</p>
+            <h1 class="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+            <p class="text-gray-300">Login to continue</p>
         </div>
 
         <form id="loginForm" class="space-y-6">
@@ -47,19 +47,19 @@
                     </div>
                     <input type="email" id="email" name="email" required
                         class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Nhập email của bạn">
+                        placeholder="Enter your email">
                 </div>
             </div>
 
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Mật khẩu</label>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i class="fas fa-lock text-gray-400"></i>
                     </div>
                     <input type="password" id="password" name="password" required
                         class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Nhập mật khẩu của bạn">
+                        placeholder="Enter your password">
                 </div>
             </div>
 
@@ -68,54 +68,99 @@
                     <input id="remember" name="remember" type="checkbox"
                         class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                     <label for="remember" class="ml-2 block text-sm text-gray-300">
-                        Ghi nhớ đăng nhập
+                        Remember me
                     </label>
                 </div>
-                <a href="#" class="text-sm text-blue-400 hover:text-blue-300">
-                    Quên mật khẩu?
+                <a href="forgot-password.html" class="text-sm text-blue-400 hover:text-blue-300">
+                    Forgot password?
                 </a>
             </div>
 
             <button type="submit"
                 class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                Đăng nhập
+                Login
             </button>
 
             <div class="text-center">
                 <p class="text-gray-300">
-                    Chưa có tài khoản?
-                    <a href="/register.html" class="text-blue-400 hover:text-blue-300">Đăng ký ngay</a>
+                    Don't have an account?
+                    <a href="register.html" class="text-blue-400 hover:text-blue-300">Register now</a>
                 </p>
             </div>
         </form>
 
-        <div class="mt-8">
-            <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-600"></div>
+        <!-- Two-Factor Authentication Modal -->
+        <div id="twoFactorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
+            <div class="fixed inset-0 flex items-center justify-center">
+                <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                    <h2 class="text-2xl font-bold mb-4">Two-Factor Authentication</h2>
+                    <p class="text-gray-600 mb-4">Please enter the verification code sent to your email.</p>
+                    <form id="twoFactorForm" class="space-y-4">
+                        <div>
+                            <label for="code" class="block text-sm font-medium text-gray-700">Verification Code</label>
+                            <input type="text" id="code" name="code" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div class="flex justify-end space-x-3">
+                            <button type="button" onclick="closeTwoFactorModal()"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                                Verify
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-transparent text-gray-400">
-                        Hoặc đăng nhập bằng
-                    </span>
-                </div>
-            </div>
-
-            <div class="mt-6 grid grid-cols-2 gap-3">
-                <button type="button" data-provider="google"
-                    class="w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-transparent text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <i class="fab fa-google text-red-500 mr-2"></i>
-                    Google
-                </button>
-                <button type="button" data-provider="facebook"
-                    class="w-full inline-flex justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm bg-transparent text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <i class="fab fa-facebook text-blue-500 mr-2"></i>
-                    Facebook
-                </button>
             </div>
         </div>
     </div>
 
-    <script src="js/login.js"></script>
+    <script type="module">
+        import authService from './js/auth.js';
+
+        let currentUser = null;
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const result = await authService.login(email, password);
+                
+                if (result.requiresTwoFactor) {
+                    currentUser = result.user;
+                    document.getElementById('twoFactorModal').classList.remove('hidden');
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        document.getElementById('twoFactorForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('code').value;
+
+            try {
+                const result = await authService.verifyTwoFactor(currentUser, code);
+                if (result.success) {
+                    window.location.href = 'index.html';
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        window.closeTwoFactorModal = function() {
+            document.getElementById('twoFactorModal').classList.add('hidden');
+            currentUser = null;
+        };
+    </script>
 </body>
 </html> 

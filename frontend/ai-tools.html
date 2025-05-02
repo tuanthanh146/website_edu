@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Công cụ AI - EduAI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -28,6 +30,28 @@
             background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1" fill="%23ffffff20"/></svg>');
             opacity: 0.1;
         }
+        .tool-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        .chat-bubble-user {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            border-radius: 18px 18px 0 18px;
+        }
+        .chat-bubble-ai {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border-radius: 18px 18px 18px 0;
+        }
+        .ai-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -48,8 +72,34 @@
                             Danh mục
                             <i class="fas fa-chevron-down ml-2 text-xs"></i>
                         </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-2">
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-comments mr-2"></i>Chatbot AI
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-user-graduate mr-2"></i>Gia sư AI
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-user mr-2"></i>User AI
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-tasks mr-2"></i>AI tạo đề
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-book mr-2"></i>Trợ lý học tập AI
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-chart-bar mr-2"></i>AI phân tích đề
+                                </a>
+                                <a href="#ai-3d-tutor" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white transition">
+                                    <i class="fas fa-cube mr-2"></i>AI 3D - Gia Sư Ảo
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <a href="/ai-tools.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center">
+                    <a href="#chat-section" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center">
                         <span>Công cụ AI</span>
                         <i class="fas fa-robot ml-2"></i>
                     </a>
@@ -63,61 +113,606 @@
     <!-- AI Tools Section -->
     <section class="hero-pattern min-h-screen pt-20">
         <div class="max-w-7xl mx-auto px-4 py-20">
-            <h1 class="text-4xl font-bold text-center mb-12">Công cụ AI</h1>
+            <h1 class="text-4xl font-bold text-center mb-4">Công cụ AI</h1>
+            <p class="text-center text-gray-300 mb-12 max-w-2xl mx-auto">Khám phá sức mạnh của AI với các công cụ học tập thông minh được thiết kế đặc biệt cho học sinh và giáo viên</p>
             
             <!-- AI Tools Grid -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Text Generator -->
-                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:transform hover:scale-105 transition duration-300">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-blue-600 p-3 rounded-lg">
-                            <i class="fas fa-font text-2xl"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold ml-4">Trình tạo văn bản</h2>
+            <div class="ai-tools-grid mb-16">
+                <!-- Tool Card 1 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 tool-card flex flex-col h-full">
+                    <div class="text-blue-400 text-3xl mb-4">
+                        <i class="fas fa-comments"></i>
                     </div>
-                    <p class="text-gray-300 mb-6">Tạo nội dung văn bản tự động cho bài luận, báo cáo và các tài liệu học tập khác.</p>
-                    <div class="space-y-4">
-                        <textarea class="w-full bg-white bg-opacity-10 border border-blue-400 rounded-lg p-3 text-white" rows="4" placeholder="Nhập chủ đề hoặc từ khóa..."></textarea>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
-                            Tạo văn bản
-                        </button>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Chat thông minh</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Đặt câu hỏi và nhận câu trả lời chi tiết về bất kỳ chủ đề nào.</p>
+                    <a href="#chat-section" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition text-center">Sử dụng ngay</a>
                 </div>
-
-                <!-- Image Generator -->
-                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:transform hover:scale-105 transition duration-300">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-blue-600 p-3 rounded-lg">
-                            <i class="fas fa-image text-2xl"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold ml-4">Trình tạo hình ảnh</h2>
+                
+                <!-- Tool Card 2 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 tool-card flex flex-col h-full">
+                    <div class="text-blue-400 text-3xl mb-4">
+                        <i class="fas fa-user-graduate"></i>
                     </div>
-                    <p class="text-gray-300 mb-6">Tạo hình ảnh minh họa và đồ họa cho bài thuyết trình và tài liệu học tập.</p>
-                    <div class="space-y-4">
-                        <textarea class="w-full bg-white bg-opacity-10 border border-blue-400 rounded-lg p-3 text-white" rows="4" placeholder="Mô tả hình ảnh bạn muốn tạo..."></textarea>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
-                            Tạo hình ảnh
-                        </button>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Gia sư cá nhân</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Được hướng dẫn về các chủ đề phức tạp với các giải thích chi tiết từng bước.</p>
+                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition text-center">Sử dụng ngay</a>
                 </div>
-
-                <!-- Code Assistant -->
-                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 hover:transform hover:scale-105 transition duration-300">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-blue-600 p-3 rounded-lg">
-                            <i class="fas fa-code text-2xl"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold ml-4">Trợ lý lập trình</h2>
+                
+                <!-- Tool Card 3 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 tool-card flex flex-col h-full">
+                    <div class="text-blue-400 text-3xl mb-4">
+                        <i class="fas fa-tasks"></i>
                     </div>
-                    <p class="text-gray-300 mb-6">Nhận trợ giúp với mã nguồn, gỡ lỗi và giải thích các khái niệm lập trình.</p>
-                    <div class="space-y-4">
-                        <textarea class="w-full bg-white bg-opacity-10 border border-blue-400 rounded-lg p-3 text-white" rows="4" placeholder="Nhập câu hỏi hoặc mã nguồn của bạn..."></textarea>
-                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition">
-                            Hỏi trợ lý
-                        </button>
+                    <h3 class="text-xl font-semibold mb-2">Tạo đề thi</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Tạo đề thi, bài kiểm tra và bài tập tùy chỉnh theo chủ đề và độ khó.</p>
+                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition text-center">Sử dụng ngay</a>
+                </div>
+                
+                <!-- Tool Card 4 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 tool-card flex flex-col h-full">
+                    <div class="text-blue-400 text-3xl mb-4">
+                        <i class="fas fa-chart-bar"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-2">Phân tích đề thi</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Phân tích chi tiết đề thi, xác định điểm mạnh và điểm yếu.</p>
+                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition text-center">Sử dụng ngay</a>
+                </div>
+                
+                <!-- Tool Card 5 - AI 3D Tutor -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 tool-card flex flex-col h-full">
+                    <div class="text-blue-400 text-3xl mb-4">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">AI 3D - Gia Sư Ảo</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Học tập tương tác với gia sư ảo 3D, trải nghiệm học tập đắm chìm và sinh động.</p>
+                    <a href="#ai-3d-tutor" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition text-center">Sử dụng ngay</a>
                 </div>
             </div>
+            
+            <!-- Chat Section -->
+            <div id="chat-section" class="max-w-4xl mx-auto bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 flex items-center text-blue-400 border-b border-gray-700 pb-4">
+                    <i class="fas fa-comments mr-3"></i>Chat thông minh
+                </h2>
+                
+                <div id="simple-chat-box" class="bg-white bg-opacity-5 rounded-lg p-4 mb-4 h-80 overflow-y-auto text-base space-y-2 shadow-inner"></div>
+                
+                <div class="flex flex-col space-y-3">
+                    <div class="flex gap-2">
+                        <select id="ai-model-select" class="bg-white bg-opacity-20 border border-blue-400 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                            <option value="general">Trợ lý tổng quát</option>
+                            <option value="math">Trợ lý toán học</option>
+                            <option value="science">Trợ lý khoa học</option>
+                            <option value="literature">Trợ lý văn học</option>
+                        </select>
+                        <button id="clear-chat-btn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-trash-alt mr-1"></i> Xóa
+                        </button>
+                    </div>
+                    
+                    <form id="simple-chat-form" class="flex gap-2">
+                        <input id="simple-chat-input" type="text" class="flex-1 bg-white bg-opacity-20 border border-blue-400 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Nhập tin nhắn..." autocomplete="off" />
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow transition">
+                            <i class="fas fa-paper-plane mr-1"></i> Gửi
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="mt-4 text-sm text-gray-400">
+                    <p>Gợi ý: Bạn có thể hỏi về các bài tập, khái niệm, hoặc yêu cầu giải thích về bất kỳ chủ đề nào.</p>
+                </div>
+            </div>
+
+            <!-- AI 3D Tutor Section -->
+            <div id="ai-3d-tutor" class="max-w-6xl mx-auto bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 shadow-lg mb-20">
+                <h2 class="text-2xl font-bold mb-6 flex items-center text-blue-400 border-b border-gray-700 pb-4">
+                    <i class="fas fa-cube mr-3"></i>AI 3D - Gia Sư Ảo
+                </h2>
+                
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- 3D Model Viewer -->
+                    <div class="w-full md:w-2/3 bg-black bg-opacity-30 rounded-xl p-6">
+                        <div class="w-full h-96 bg-black rounded-lg flex items-center justify-center mb-4">
+                            <canvas id="tutor3d-canvas" class="w-full h-full"></canvas>
+                        </div>
+                        <div class="flex flex-wrap gap-4 mt-4">
+                            <button id="rotate-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition flex items-center">
+                                <i class="fas fa-sync-alt mr-2"></i>Xoay mô hình
+                            </button>
+                            <button id="change-tutor-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition flex items-center">
+                                <i class="fas fa-random mr-2"></i>Đổi giáo viên
+                            </button>
+                            <select id="subject-select" class="bg-white bg-opacity-20 border border-blue-400 rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+                                <option value="math">Toán học</option>
+                                <option value="physics">Vật lý</option>
+                                <option value="chemistry">Hóa học</option>
+                                <option value="biology">Sinh học</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Tutor Chat -->
+                    <div class="w-full md:w-1/3 bg-black bg-opacity-30 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-400">Chat với Gia sư 3D</h3>
+                        <div id="tutor3d-chat-box" class="bg-white bg-opacity-5 rounded-lg p-4 mb-4 h-72 overflow-y-auto text-base space-y-2 shadow-inner"></div>
+                        <form id="tutor3d-chat-form" class="flex flex-col gap-2">
+                            <input id="tutor3d-chat-input" type="text" class="w-full bg-white bg-opacity-20 border border-blue-400 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition" placeholder="Hỏi gia sư 3D..." autocomplete="off" />
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold shadow transition flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i>Gửi câu hỏi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-blue-900 bg-opacity-30 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-300">
+                        <i class="fas fa-info-circle mr-2"></i>Về AI 3D - Gia Sư Ảo
+                    </h3>
+                    <p class="text-gray-300">
+                        Gia sư ảo 3D cung cấp trải nghiệm học tập tương tác và sống động. Chọn chủ đề bạn muốn học, 
+                        tương tác với mô hình 3D, và đặt câu hỏi để nhận được hướng dẫn chi tiết. Công nghệ này 
+                        kết hợp giữa trí tuệ nhân tạo và đồ họa 3D để tạo ra môi trường học tập đắm chìm.
+                    </p>
+                </div>
+            </div>
+
+            <script>
+            // Simple Chat logic with Enter, time, avatar
+            document.addEventListener('DOMContentLoaded', function() {
+                const simpleChatBox = document.getElementById('simple-chat-box');
+                const simpleChatForm = document.getElementById('simple-chat-form');
+                const simpleChatInput = document.getElementById('simple-chat-input');
+                const aiModelSelect = document.getElementById('ai-model-select');
+                const clearChatBtn = document.getElementById('clear-chat-btn');
+                
+                // Function to call the backend API
+                async function callAIApi(userMessage, aiModel) {
+                    try {
+                        // Xử lý các câu hỏi phổ biến trực tiếp từ frontend
+                        if (userMessage.toLowerCase().includes("mấy giờ") || 
+                            userMessage.toLowerCase().includes("thời gian") ||
+                            userMessage.toLowerCase().includes("bây giờ là")) {
+                            const now = new Date();
+                            return `Bây giờ là ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+                        }
+                        
+                        if (userMessage.toLowerCase().includes("chào") || 
+                            userMessage.toLowerCase().includes("hello") || 
+                            userMessage.toLowerCase().includes("hi")) {
+                            return "Xin chào! Tôi là trợ lý AI của EduAI. Tôi có thể giúp gì cho bạn hôm nay?";
+                        }
+                        
+                        if (userMessage.toLowerCase().includes("tên") && 
+                            userMessage.toLowerCase().includes("bạn")) {
+                            return "Tôi là trợ lý AI của EduAI, rất vui được giúp đỡ bạn.";
+                        }
+                        
+                        if (userMessage.toLowerCase().includes("cảm ơn") || 
+                            userMessage.toLowerCase().includes("thank")) {
+                            return "Không có gì! Tôi luôn sẵn sàng giúp đỡ bạn.";
+                        }
+                        
+                        // Câu hỏi về tính năng
+                        if (userMessage.toLowerCase().includes("tính năng") || 
+                            userMessage.toLowerCase().includes("chức năng") ||
+                            userMessage.toLowerCase().includes("có thể làm gì")) {
+                            return "EduAI có nhiều tính năng hỗ trợ học tập như: chat thông minh, gia sư 3D, tạo đề thi, phân tích đề thi, và nhiều công cụ học tập khác. Bạn muốn tìm hiểu về tính năng nào?";
+                        }
+                        
+                        // Câu hỏi về hướng dẫn học tập
+                        if (userMessage.toLowerCase().includes("làm thế nào") && 
+                            userMessage.toLowerCase().includes("học")) {
+                            return "Để học hiệu quả, bạn nên: 1) Đặt mục tiêu rõ ràng, 2) Chia nhỏ nội dung học, 3) Thực hành thường xuyên, 4) Nghỉ ngơi hợp lý, và 5) Ôn tập định kỳ.";
+                        }
+                        
+                        // Câu hỏi về toán học
+                        if (userMessage.toLowerCase().includes("toán") || 
+                           userMessage.toLowerCase().includes("đại số") ||
+                           userMessage.toLowerCase().includes("hình học")) {
+                            return handleMathQuestion(userMessage);
+                        }
+                        
+                        // Câu hỏi về vật lý
+                        if (userMessage.toLowerCase().includes("vật lý") || 
+                           userMessage.toLowerCase().includes("newton") ||
+                           userMessage.toLowerCase().includes("lực")) {
+                            return handlePhysicsQuestion(userMessage);
+                        }
+                        
+                        // Câu hỏi về lỗi
+                        if (userMessage.toLowerCase().includes("sao") && 
+                            userMessage.toLowerCase().includes("không trả lời")) {
+                            return "Tôi xin lỗi nếu trước đó tôi không phản hồi chính xác. Đôi khi tôi gặp giới hạn kỹ thuật. Tôi đang cố gắng trả lời tốt nhất có thể.";
+                        }
+                        
+                        // Thử gọi API backend
+                        try {
+                            console.log("Calling backend API...");
+                            const response = await fetch('/api/chat', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    message: userMessage,
+                                    model: aiModel
+                                }),
+                                timeout: 10000 // 10 giây timeout
+                            });
+                            
+                            if (response.ok) {
+                                const data = await response.json();
+                                if (data.reply) {
+                                    console.log("API response:", data.reply);
+                                    return data.reply;
+                                }
+                            } else {
+                                console.log("API returned error status:", response.status);
+                            }
+                        } catch (error) {
+                            console.log("API call failed:", error);
+                        }
+                        
+                        // Fallback: Sử dụng phản hồi mẫu dựa trên mô hình AI được chọn
+                        return generateModelResponse(userMessage, aiModel);
+                        
+                    } catch (error) {
+                        console.error('Error in AI processing:', error);
+                        return "Xin lỗi, tôi gặp sự cố khi xử lý câu hỏi của bạn. Bạn có thể thử lại sau?";
+                    }
+                }
+                
+                // Hàm xử lý các câu hỏi toán học
+                function handleMathQuestion(question) {
+                    if (question.includes("công thức") || question.includes("định lý")) {
+                        return "Trong toán học, công thức và định lý là nền tảng quan trọng. Để giải quyết bài toán hiệu quả, bạn cần nắm vững các công thức cơ bản và hiểu được cách áp dụng chúng trong các bối cảnh khác nhau.";
+                    }
+                    
+                    if (question.includes("đạo hàm") || question.includes("tích phân")) {
+                        return "Đạo hàm và tích phân là hai khái niệm cơ bản trong giải tích. Đạo hàm giúp ta tìm tốc độ thay đổi của hàm số, trong khi tích phân giúp tính diện tích dưới đường cong hoặc khối lượng của vật thể.";
+                    }
+                    
+                    if (question.includes("hình học")) {
+                        return "Hình học nghiên cứu về hình dạng, kích thước, vị trí tương đối của các đối tượng và tính chất của không gian. Hình học Euclid bao gồm các định lý về tam giác, tứ giác và đường tròn, trong khi hình học không gian giúp ta hiểu về các khái niệm 3D.";
+                    }
+                    
+                    return "Toán học là nền tảng của nhiều ngành khoa học và công nghệ. Nó giúp phát triển tư duy logic, khả năng giải quyết vấn đề và óc sáng tạo. Bạn có câu hỏi cụ thể về toán học không?";
+                }
+                
+                // Hàm xử lý các câu hỏi vật lý
+                function handlePhysicsQuestion(question) {
+                    if (question.includes("newton") || question.includes("lực")) {
+                        return "Định luật Newton về chuyển động là nền tảng của vật lý cơ học. Định luật 1: Một vật đứng yên hoặc chuyển động thẳng đều khi không có lực tác động. Định luật 2: F = m × a. Định luật 3: Phản lực luôn bằng và ngược chiều với tác dụng.";
+                    }
+                    
+                    if (question.includes("điện") || question.includes("từ")) {
+                        return "Điện từ học nghiên cứu mối quan hệ giữa điện và từ. Định luật Coulomb mô tả lực tương tác giữa các điện tích, trong khi các định luật Maxwell mô tả cách điện trường và từ trường tương tác và lan truyền.";
+                    }
+                    
+                    if (question.includes("năng lượng") || question.includes("công")) {
+                        return "Năng lượng là khả năng thực hiện công của một hệ. Năng lượng không thể tạo ra hay mất đi, chỉ có thể chuyển đổi từ dạng này sang dạng khác. Các dạng năng lượng phổ biến bao gồm: động năng, thế năng, nhiệt năng, điện năng, và năng lượng hóa học.";
+                    }
+                    
+                    return "Vật lý học giúp chúng ta hiểu được các quy luật cơ bản của tự nhiên, từ chuyển động của các vật thể đến tương tác của các hạt cơ bản. Bạn quan tâm đến lĩnh vực nào trong vật lý?";
+                }
+                
+                // Hàm tạo phản hồi dựa trên mô hình AI được chọn
+                function generateModelResponse(userMessage, aiModel) {
+                    const modelResponses = {
+                        general: [
+                            "Đây là câu hỏi thú vị. Theo hiểu biết của tôi, " + userMessage.split(' ').slice(0, 3).join(' ') + " là một chủ đề quan trọng cần tìm hiểu kỹ.",
+                            "Tôi hiểu điều bạn đang hỏi. Câu trả lời cho vấn đề này phụ thuộc vào nhiều yếu tố khác nhau.",
+                            "Câu hỏi của bạn liên quan đến một lĩnh vực khá rộng. Chúng ta có thể bắt đầu bằng cách tìm hiểu các khái niệm cơ bản."
+                        ],
+                        math: [
+                            "Đây là một vấn đề toán học thú vị. Để giải quyết, chúng ta cần áp dụng các nguyên tắc cơ bản của đại số và hình học.",
+                            "Trong toán học, câu hỏi như thế này thường được giải quyết bằng cách phân tích từng bước và áp dụng công thức phù hợp.",
+                            "Để giải bài toán này, trước tiên hãy xác định các biến số và mối quan hệ giữa chúng."
+                        ],
+                        science: [
+                            "Câu hỏi của bạn liên quan đến các nguyên lý khoa học cơ bản. Theo các nghiên cứu hiện đại, hiện tượng này được giải thích bởi các quy luật vật lý.",
+                            "Trong khoa học, chúng ta có thể hiểu vấn đề này thông qua quan sát thực nghiệm và các mô hình lý thuyết.",
+                            "Đây là một khái niệm khoa học quan trọng. Để hiểu rõ hơn, chúng ta cần xem xét cả lý thuyết và thực nghiệm."
+                        ],
+                        literature: [
+                            "Câu hỏi của bạn đề cập đến một khía cạnh thú vị của văn học. Các nhà phê bình văn học thường phân tích tác phẩm thông qua nhiều góc nhìn khác nhau.",
+                            "Trong nghiên cứu văn học, chúng ta thường xem xét bối cảnh lịch sử, phong cách viết và các chủ đề của tác phẩm.",
+                            "Để hiểu về tác phẩm văn học này, chúng ta nên phân tích nhân vật, cốt truyện và thông điệp của tác giả."
+                        ]
+                    };
+                    
+                    // Tùy chỉnh phản hồi dựa trên từ khóa trong câu hỏi
+                    if (userMessage.toLowerCase().includes("khái niệm") || 
+                        userMessage.toLowerCase().includes("định nghĩa")) {
+                        return `Về khái niệm ${userMessage.split(' ').slice(-3).join(' ')}, đây là một thuật ngữ quan trọng trong lĩnh vực này. Để hiểu rõ, chúng ta nên bắt đầu từ định nghĩa cơ bản và ý nghĩa của nó trong ngữ cảnh cụ thể.`;
+                    }
+                    
+                    if (userMessage.toLowerCase().includes("so sánh") || 
+                       userMessage.toLowerCase().includes("khác nhau")) {
+                        return `Khi so sánh, chúng ta cần xem xét các đặc điểm chính, điểm mạnh và hạn chế của từng đối tượng. Điều này giúp chúng ta hiểu sâu hơn về bản chất và ứng dụng của chúng trong các tình huống khác nhau.`;
+                    }
+                    
+                    if (userMessage.toLowerCase().includes("ví dụ") || 
+                       userMessage.toLowerCase().includes("minh họa")) {
+                        return `Để minh họa điều này, chúng ta có thể xem xét một ví dụ cụ thể: trong thực tế, khái niệm này được áp dụng khi chúng ta muốn phân tích và giải quyết các vấn đề phức tạp trong lĩnh vực này.`;
+                    }
+                    
+                    // Sử dụng phản hồi mẫu theo mô hình
+                    const responses = modelResponses[aiModel] || modelResponses.general;
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+                
+                function formatTime(date) {
+                    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                }
+                
+                function addMessage(msg, isUser) {
+                    const time = formatTime(new Date());
+                    const avatar = isUser
+                        ? `<img src='https://ui-avatars.com/api/?name=User&background=2563eb&color=fff&rounded=true&size=32' class='w-8 h-8 rounded-full'/>`
+                        : `<img src='https://ui-avatars.com/api/?name=AI&background=9ca3af&color=222&rounded=true&size=32' class='w-8 h-8 rounded-full'/>`;
+                    
+                    const bubbleClass = isUser ? 'chat-bubble-user' : 'chat-bubble-ai';
+                    
+                    simpleChatBox.innerHTML += `
+                        <div class='flex ${isUser ? 'justify-end' : 'justify-start'} items-start gap-2 mb-4'>
+                            ${isUser ? '' : avatar}
+                            <div class='max-w-xs md:max-w-md ${bubbleClass} px-4 py-3 shadow-lg'>
+                                <div class='text-sm md:text-base'>${msg}</div>
+                                <div class='text-xs text-gray-300 mt-1 text-right'>${time}</div>
+                            </div>
+                            ${isUser ? avatar : ''}
+                        </div>
+                    `;
+                    simpleChatBox.scrollTop = simpleChatBox.scrollHeight;
+                }
+                
+                // Show welcome message
+                setTimeout(() => {
+                    addMessage('Chào mừng bạn! Tôi là trợ lý AI của EduAI. Bạn cần giúp đỡ với vấn đề gì?', false);
+                }, 500);
+                
+                if (simpleChatForm) {
+                    simpleChatForm.onsubmit = function(e) {
+                        e.preventDefault();
+                        const userMsg = simpleChatInput.value.trim();
+                        if (!userMsg) return;
+                        
+                        addMessage(userMsg, true);
+                        simpleChatInput.value = '';
+                        
+                        // Show typing indicator
+                        const typingIndicator = document.createElement('div');
+                        typingIndicator.id = 'typing-indicator';
+                        typingIndicator.className = 'flex gap-1 items-center text-gray-400 mb-4';
+                        typingIndicator.innerHTML = `
+                            <img src='https://ui-avatars.com/api/?name=AI&background=9ca3af&color=222&rounded=true&size=24' class='w-6 h-6 rounded-full'/>
+                            <div class="flex gap-1">
+                                <span class="animate-bounce">.</span>
+                                <span class="animate-bounce" style="animation-delay: 0.1s">.</span>
+                                <span class="animate-bounce" style="animation-delay: 0.2s">.</span>
+                            </div>
+                        `;
+                        simpleChatBox.appendChild(typingIndicator);
+                        simpleChatBox.scrollTop = simpleChatBox.scrollHeight;
+                        
+                        // Simulate AI response after delay
+                        setTimeout(async () => {
+                            // Remove typing indicator
+                            simpleChatBox.removeChild(typingIndicator);
+                            
+                            // Call API or get sample response
+                            const aiReply = await callAIApi(userMsg, aiModelSelect.value);
+                            
+                            // Add AI response
+                            addMessage(aiReply, false);
+                        }, 1500);
+                    };
+                }
+                
+                // Gửi bằng Enter
+                if (simpleChatInput) {
+                    simpleChatInput.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            simpleChatForm.dispatchEvent(new Event('submit'));
+                        }
+                    });
+                }
+                
+                // Clear chat
+                if (clearChatBtn) {
+                    clearChatBtn.addEventListener('click', function() {
+                        simpleChatBox.innerHTML = '';
+                        setTimeout(() => {
+                            addMessage('Chat đã được xóa. Bạn cần hỗ trợ gì ạ?', false);
+                        }, 300);
+                    });
+                }
+            });
+
+            // 3D Tutor Chat Logic
+            document.addEventListener('DOMContentLoaded', function() {
+                const tutor3dChatBox = document.getElementById('tutor3d-chat-box');
+                const tutor3dChatForm = document.getElementById('tutor3d-chat-form');
+                const tutor3dChatInput = document.getElementById('tutor3d-chat-input');
+                const subjectSelect = document.getElementById('subject-select');
+                
+                // Show welcome message for 3D tutor
+                setTimeout(() => {
+                    add3DTutorMessage('Xin chào! Tôi là Gia sư 3D của bạn. Tôi có thể giúp gì cho bạn hôm nay?');
+                }, 800);
+                
+                // Function to add user message in 3D tutor chat
+                function add3DUserMessage(message) {
+                    tutor3dChatBox.innerHTML += `
+                        <div class="text-right mb-2">
+                            <span class="inline-block bg-blue-600 text-white px-3 py-2 rounded-tl-xl rounded-tr-xl rounded-bl-xl shadow-md">${message}</span>
+                        </div>
+                    `;
+                    tutor3dChatBox.scrollTop = tutor3dChatBox.scrollHeight;
+                }
+                
+                // Function to add tutor message in 3D tutor chat
+                function add3DTutorMessage(message) {
+                    tutor3dChatBox.innerHTML += `
+                        <div class="text-left mb-2">
+                            <span class="inline-block bg-gray-700 text-white px-3 py-2 rounded-tr-xl rounded-tl-xl rounded-br-xl shadow-md">${message}</span>
+                        </div>
+                    `;
+                    tutor3dChatBox.scrollTop = tutor3dChatBox.scrollHeight;
+                }
+                
+                // Call API for 3D tutor response
+                async function call3DTutorAPI(message, subject) {
+                    try {
+                        // Simulate API call - in production would call real backend
+                        if (Math.random() > 0.3) { // 70% chance to simulate
+                            if (subject === 'math') {
+                                return 'Đây là một câu hỏi toán học thú vị. Chúng ta cần xem xét các công thức và nguyên lý liên quan để giải quyết.';
+                            } else if (subject === 'physics') {
+                                return 'Trong vật lý, vấn đề này liên quan đến các định luật quan trọng. Hãy phân tích từng bước...';
+                            } else if (subject === 'chemistry') {
+                                return 'Trong hóa học, hiện tượng này xảy ra do phản ứng giữa các nguyên tố. Cụ thể...';
+                            } else if (subject === 'biology') {
+                                return 'Trong sinh học, quá trình này được giải thích thông qua các cơ chế tế bào và phân tử...';
+                            }
+                        }
+                        
+                        // Real API call would look something like this:
+                        const response = await fetch('/api/ai3d/chat', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                message: message,
+                                subject: subject
+                            }),
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        return data.reply || 'Xin lỗi, tôi không thể xử lý câu hỏi của bạn lúc này.';
+                    } catch (error) {
+                        console.error('Error calling 3D Tutor API:', error);
+                        return 'Đang gặp sự cố kết nối. Vui lòng thử lại sau.';
+                    }
+                }
+                
+                if (tutor3dChatForm) {
+                    tutor3dChatForm.onsubmit = function(e) {
+                        e.preventDefault();
+                        const userMsg = tutor3dChatInput.value.trim();
+                        if (!userMsg) return;
+                        
+                        // Add user message
+                        add3DUserMessage(userMsg);
+                        tutor3dChatInput.value = '';
+                        
+                        // Show typing indicator
+                        const typingIndicator = document.createElement('div');
+                        typingIndicator.id = 'tutor3d-typing';
+                        typingIndicator.className = 'flex items-center text-gray-400 mb-2 ml-2';
+                        typingIndicator.innerHTML = `
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                            </div>
+                        `;
+                        tutor3dChatBox.appendChild(typingIndicator);
+                        tutor3dChatBox.scrollTop = tutor3dChatBox.scrollHeight;
+                        
+                        // Get selected subject
+                        const subject = subjectSelect.value;
+                        
+                        // Call API after delay to simulate thinking
+                        setTimeout(async () => {
+                            // Remove typing indicator
+                            tutor3dChatBox.removeChild(typingIndicator);
+                            
+                            // Get response from API
+                            const response = await call3DTutorAPI(userMsg, subject);
+                            add3DTutorMessage(response);
+                        }, 1500);
+                    };
+                }
+                
+                // Initialize 3D model
+                try {
+                    let scene = new THREE.Scene();
+                    let camera = new THREE.PerspectiveCamera(75, 1.5, 0.1, 1000);
+                    let canvas = document.getElementById('tutor3d-canvas');
+                    
+                    if (canvas) {
+                        let renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+                        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                        camera.position.set(0, 1.5, 3);
+                        
+                        // Add lights
+                        let light = new THREE.DirectionalLight(0xffffff, 1);
+                        light.position.set(2, 5, 5);
+                        scene.add(light);
+                        let ambient = new THREE.AmbientLight(0x404040, 2);
+                        scene.add(ambient);
+                        
+                        // Create a simple 3D model (cube) since we don't have GLTF models
+                        const geometry = new THREE.BoxGeometry(1, 1, 1);
+                        const material = new THREE.MeshPhongMaterial({ color: 0x0088ff });
+                        const cube = new THREE.Mesh(geometry, material);
+                        scene.add(cube);
+                        
+                        // Animate the cube
+                        function animate() {
+                            requestAnimationFrame(animate);
+                            if (window.isRotating) cube.rotation.y += 0.01;
+                            renderer.render(scene, camera);
+                        }
+                        
+                        animate();
+                        window.isRotating = true;
+                        
+                        // Handle rotate button
+                        const rotateBtn = document.getElementById('rotate-btn');
+                        if (rotateBtn) {
+                            rotateBtn.onclick = function() {
+                                window.isRotating = !window.isRotating;
+                                this.innerHTML = window.isRotating ? 
+                                    '<i class="fas fa-pause mr-2"></i>Dừng xoay' : 
+                                    '<i class="fas fa-sync-alt mr-2"></i>Xoay mô hình';
+                            };
+                        }
+                        
+                        // Handle change tutor button
+                        const changeTutorBtn = document.getElementById('change-tutor-btn');
+                        if (changeTutorBtn) {
+                            changeTutorBtn.onclick = function() {
+                                // Change cube color to simulate different tutors
+                                material.color.setHex(Math.random() * 0xffffff);
+                                // Add a message to indicate change
+                                add3DTutorMessage('Xin chào, tôi là gia sư mới của bạn! Tôi có thể giúp gì cho bạn?');
+                            };
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error initializing 3D model:', e);
+                    const canvas = document.getElementById('tutor3d-canvas');
+                    if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        ctx.fillStyle = '#1a202c';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.font = '20px Arial';
+                        ctx.fillStyle = '#fff';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Không thể tải mô hình 3D', canvas.width/2, canvas.height/2);
+                    }
+                }
+            });
+            </script>
 
             <!-- Features Section -->
             <div class="mt-20">
@@ -189,5 +784,4 @@
         });
     </script>
 </body>
-</html> 
 </html> 

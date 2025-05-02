@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Demo AI - EduAI 3D</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/assets/fontawesome/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/frontend/css/styles.css" rel="stylesheet">
+    <link href="/frontend/css/ai-demo.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    {% include 'partials/header.html' %}
+    
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-primary mb-3">
+                    <i class="fas fa-robot mr-2"></i> Demo Trợ lý AI cho giáo dục 3D
+                </h2>
+                <p class="text-muted">
+                    Khám phá các chức năng AI trợ giúp giáo viên và học sinh sử dụng công nghệ 3D trong giáo dục.
+                </p>
+                <hr>
+            </div>
+        </div>
+        
+        <!-- AI Chat Demo -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="ai-demo-section">
+                    <h3>
+                        <i class="fas fa-comments text-primary mr-2"></i> Trợ lý AI giáo dục
+                    </h3>
+                    
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <i class="fas fa-robot"></i> EduAI Assistant
+                        </div>
+                        
+                        <div class="chat-history" id="chatHistory">
+                            <div class="chat-message ai-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <p>Xin chào! Tôi là trợ lý AI EduAI. Tôi có thể giúp bạn:</p>
+                                    <p class="list-item">• Tạo ý tưởng bài học 3D</p>
+                                    <p class="list-item">• Gợi ý mô hình 3D cho bài giảng</p>
+                                    <p class="list-item">• Trả lời câu hỏi về giáo dục 3D</p>
+                                    <p class="list-item">• Giải thích khái niệm STEM</p>
+                                    <p>Bạn muốn tôi giúp gì?</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="loading-indicator" id="loadingIndicator">
+                            <div class="loading-dots">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input">
+                            <input type="text" id="chatInput" placeholder="Nhập câu hỏi hoặc yêu cầu..." />
+                            <button id="sendButton" type="button">
+                                <i class="fas fa-paper-plane mr-1"></i> Gửi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3D Lesson Generator -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="ai-demo-section">
+                    <h3>
+                        <i class="fas fa-lightbulb text-warning mr-2"></i> Tạo ý tưởng bài học 3D
+                    </h3>
+                    
+                    <div class="lesson-form-container">
+                        <form id="lessonGeneratorForm">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="subject"><i class="fas fa-book mr-1"></i> Môn học</label>
+                                        <select class="form-control" id="subject" required>
+                                            <option value="">-- Chọn môn học --</option>
+                                            <option value="vật lý">Vật lý</option>
+                                            <option value="hóa học">Hóa học</option>
+                                            <option value="sinh học">Sinh học</option>
+                                            <option value="địa lý">Địa lý</option>
+                                            <option value="lịch sử">Lịch sử</option>
+                                            <option value="toán học">Toán học</option>
+                                            <option value="công nghệ">Công nghệ</option>
+                                            <option value="tiếng anh">Tiếng Anh</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="topic"><i class="fas fa-tag mr-1"></i> Chủ đề</label>
+                                        <input type="text" class="form-control" id="topic" placeholder="Ví dụ: Phản ứng hóa học, Dòng điện..." required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="difficulty"><i class="fas fa-signal mr-1"></i> Độ khó</label>
+                                        <select class="form-control" id="difficulty">
+                                            <option value="basic">Cơ bản</option>
+                                            <option value="intermediate" selected>Trung bình</option>
+                                            <option value="advanced">Nâng cao</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <i class="fas fa-magic mr-1"></i> Tạo ý tưởng
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="lesson-loading" id="lessonLoading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Đang tạo...</span>
+                        </div>
+                        <p class="mt-2">Đang tạo ý tưởng bài học...</p>
+                    </div>
+                    
+                    <div class="lesson-results" id="lessonResults">
+                        <h4 class="mb-4 text-center d-none" id="resultsTitle">Ý tưởng bài học 3D</h4>
+                        
+                        <div class="row" id="lessonIdeasContainer">
+                            <!-- Kết quả được thêm vào đây -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quiz Generator -->
+        <div class="row">
+            <div class="col-12">
+                <div class="ai-demo-section">
+                    <h3>
+                        <i class="fas fa-question-circle text-success mr-2"></i> Tạo câu hỏi trắc nghiệm
+                    </h3>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-info-circle mr-1"></i> Thông tin
+                        </div>
+                        <div class="card-body">
+                            <p>Tính năng cho phép giáo viên tạo nhanh các câu hỏi trắc nghiệm cho bài giảng 3D.</p>
+                            <div class="alert alert-info">
+                                <i class="fas fa-lightbulb mr-1"></i> Tính năng đang được phát triển và sẽ ra mắt sớm!
+                            </div>
+                            <button class="btn btn-outline-primary" disabled>
+                                <i class="fas fa-magic mr-1"></i> Sắp ra mắt
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+    
+    <!-- Template for lesson card -->
+    <template id="lessonCardTemplate">
+        <div class="col-md-6 mb-4">
+            <div class="card lesson-card">
+                <div class="card-header">
+                    <h5 class="lesson-title"></h5>
+                </div>
+                <div class="card-body">
+                    <p class="lesson-description"></p>
+                    <h6>Hoạt động học tập:</h6>
+                    <ul class="lesson-activities"></ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-outline-primary save-btn">
+                        <i class="far fa-save mr-1"></i> Lưu ý tưởng
+                    </button>
+                    <button class="btn btn-sm btn-outline-success expand-btn">
+                        <i class="fas fa-expand-alt mr-1"></i> Mở rộng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- JavaScript Libraries -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/frontend/js/api/ai-helper.js"></script>
+    <script>
+        // UI Helper
+        const uiHelper = {
+            // Chat UI
+            chatHistory: document.getElementById('chatHistory'),
+            chatInput: document.getElementById('chatInput'),
+            sendButton: document.getElementById('sendButton'),
+            loadingIndicator: document.getElementById('loadingIndicator'),
+            
+            // Lesson Generator
+            lessonForm: document.getElementById('lessonGeneratorForm'),
+            lessonLoading: document.getElementById('lessonLoading'),
+            resultsTitle: document.getElementById('resultsTitle'),
+            lessonIdeasContainer: document.getElementById('lessonIdeasContainer'),
+            lessonCardTemplate: document.getElementById('lessonCardTemplate'),
+            
+            // Add message to chat
+            addChatMessage: function(message, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${isUser ? 'user-message' : 'ai-message'}`;
+                
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = 'message-avatar';
+                avatarDiv.innerHTML = `<i class="fas fa-${isUser ? 'user' : 'robot'}"></i>`;
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                
+                // Convert newlines to paragraphs
+                const paragraphs = message.split('\n').filter(p => p.trim() !== '');
+                paragraphs.forEach(p => {
+                    const para = document.createElement('p');
+                    para.innerHTML = p;
+                    contentDiv.appendChild(para);
+                });
+                
+                messageDiv.appendChild(avatarDiv);
+                messageDiv.appendChild(contentDiv);
+                
+                this.chatHistory.appendChild(messageDiv);
+                this.chatHistory.scrollTop = this.chatHistory.scrollHeight;
+            },
+            
+            // Add error message to chat
+            addErrorMessage: function(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message error-message';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content error';
+                contentDiv.textContent = message;
+                
+                messageDiv.appendChild(contentDiv);
+                this.chatHistory.appendChild(messageDiv);
+                this.chatHistory.scrollTop = this.chatHistory.scrollHeight;
+            },
+            
+            // Show loading indicator
+            showLoading: function() {
+                this.loadingIndicator.style.display = 'block';
+                this.sendButton.disabled = true;
+                this.chatInput.disabled = true;
+            },
+            
+            // Hide loading indicator
+            hideLoading: function() {
+                this.loadingIndicator.style.display = 'none';
+                this.sendButton.disabled = false;
+                this.chatInput.disabled = false;
+                this.chatInput.focus();
+            },
+            
+            // Clear lesson ideas
+            clearLessonIdeas: function() {
+                this.lessonIdeasContainer.innerHTML = '';
+                this.resultsTitle.classList.add('d-none');
+            },
+            
+            // Show lesson loading
+            showLessonLoading: function() {
+                this.lessonLoading.style.display = 'block';
+            },
+            
+            // Hide lesson loading
+            hideLessonLoading: function() {
+                this.lessonLoading.style.display = 'none';
+            },
+            
+            // Add lesson idea card
+            addLessonIdea: function(idea) {
+                // Hiển thị tiêu đề kết quả
+                this.resultsTitle.classList.remove('d-none');
+                
+                // Clone template
+                const template = this.lessonCardTemplate.content.cloneNode(true);
+                const card = template.querySelector('.card');
+                
+                // Fill data
+                card.querySelector('.lesson-title').textContent = idea.title;
+                card.querySelector('.lesson-description').textContent = idea.description;
+                
+                // Add activities
+                const activitiesList = card.querySelector('.lesson-activities');
+                idea.activities.forEach(activity => {
+                    const li = document.createElement('li');
+                    li.textContent = activity;
+                    activitiesList.appendChild(li);
+                });
+                
+                // Add event listeners
+                card.querySelector('.save-btn').addEventListener('click', function() {
+                    alert('Tính năng lưu ý tưởng sẽ ra mắt sớm!');
+                });
+                
+                card.querySelector('.expand-btn').addEventListener('click', function() {
+                    alert('Tính năng mở rộng ý tưởng sẽ ra mắt sớm!');
+                });
+                
+                this.lessonIdeasContainer.appendChild(template);
+            }
+        };
+        
+        // Initialize Chat
+        (function() {
+            // Send message
+            function sendMessage() {
+                const message = uiHelper.chatInput.value.trim();
+                if (!message) return;
+                
+                // Add user message to chat
+                uiHelper.addChatMessage(message, true);
+                uiHelper.chatInput.value = '';
+                
+                // Show loading
+                uiHelper.showLoading();
+                
+                // Send to AI
+                ai3DHelper.generateContent(message)
+                    .then(response => {
+                        // Add AI response to chat
+                        uiHelper.addChatMessage(response);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        uiHelper.addErrorMessage(`Lỗi: ${error.message || 'Không thể kết nối đến máy chủ'}`);
+                    })
+                    .finally(() => {
+                        uiHelper.hideLoading();
+                    });
+            }
+            
+            // Event listeners
+            uiHelper.sendButton.addEventListener('click', sendMessage);
+            
+            uiHelper.chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        })();
+        
+        // Initialize Lesson Generator
+        (function() {
+            uiHelper.lessonForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const subject = document.getElementById('subject').value;
+                const topic = document.getElementById('topic').value;
+                const difficulty = document.getElementById('difficulty').value;
+                
+                if (!subject || !topic) {
+                    alert('Vui lòng nhập đầy đủ thông tin môn học và chủ đề');
+                    return;
+                }
+                
+                // Clear previous results and show loading
+                uiHelper.clearLessonIdeas();
+                uiHelper.showLessonLoading();
+                
+                // Generate lesson ideas
+                ai3DHelper.generate3DLessonIdeas(subject, topic, difficulty)
+                    .then(ideas => {
+                        if (ideas && ideas.length > 0) {
+                            // Add each idea to the container
+                            ideas.forEach(idea => {
+                                uiHelper.addLessonIdea(idea);
+                            });
+                        } else {
+                            throw new Error('Không thể tạo ý tưởng bài học, vui lòng thử lại sau');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert(`Lỗi: ${error.message || 'Không thể kết nối đến máy chủ'}`);
+                    })
+                    .finally(() => {
+                        uiHelper.hideLessonLoading();
+                    });
+            });
+        })();
+    </script>
+</body>
+</html> 

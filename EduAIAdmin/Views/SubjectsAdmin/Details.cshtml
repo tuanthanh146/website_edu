@@ -1,0 +1,120 @@
+@model EduAIAdmin.Models.Subject
+
+@{
+    ViewData["Title"] = "Chi tiết môn học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Chi tiết môn học</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Home/Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="/SubjectsAdmin/Index">Môn học</a></li>
+        <li class="breadcrumb-item active">Chi tiết</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-info-circle me-1"></i>
+            Thông tin môn học
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">ID:</div>
+                <div class="col-md-9">@Model.Id</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Tên môn học:</div>
+                <div class="col-md-9">@Model.Name</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Mô tả:</div>
+                <div class="col-md-9">@Model.Description</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Ngày tạo:</div>
+                <div class="col-md-9">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Ngày cập nhật:</div>
+                <div class="col-md-9">@(Model.UpdatedAt.HasValue ? Model.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa cập nhật")</div>
+            </div>
+            
+            <div class="mt-4">
+                <h5>Khóa học thuộc môn học này</h5>
+                @if (Model.Courses != null && Model.Courses.Any())
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên khóa học</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var course in Model.Courses)
+                            {
+                                <tr>
+                                    <td>@course.Id</td>
+                                    <td>@course.Title</td>
+                                    <td>
+                                        <a href="/CoursesAdmin/Details/@course.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-muted">Không có khóa học nào thuộc môn học này.</p>
+                }
+            </div>
+            
+            <div class="mt-4">
+                <h5>Chủ đề thuộc môn học này</h5>
+                @if (Model.Topics != null && Model.Topics.Any())
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên chủ đề</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var topic in Model.Topics)
+                            {
+                                <tr>
+                                    <td>@topic.Id</td>
+                                    <td>@topic.Name</td>
+                                    <td>
+                                        <a href="/TopicsAdmin/Details/@topic.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="text-muted">Không có chủ đề nào thuộc môn học này.</p>
+                }
+            </div>
+            
+            <div class="mt-4">
+                <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Chỉnh sửa
+                </a>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div> 

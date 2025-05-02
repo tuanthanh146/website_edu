@@ -1,0 +1,132 @@
+/**
+ * Admin Login Panel Styles
+ */
+
+/* Login container */
+.admin-login-container {
+    transition: all 0.3s ease;
+    max-width: 450px;
+    width: 100%;
+    margin: 2rem auto;
+}
+
+/* Animation khi hiển thị/ẩn */
+.admin-login-container.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+/* Form elements */
+.admin-login-container input[type="email"],
+.admin-login-container input[type="password"] {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-login-container input[type="email"]:focus,
+.admin-login-container input[type="password"]:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+
+/* Login button */
+.admin-login-container button[type="submit"] {
+    transition: background-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-login-container button[type="submit"]:hover {
+    background-color: #3182ce;
+}
+
+.admin-login-container button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* Button loading state */
+.admin-login-container button[type="submit"].loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* Checkbox styling */
+.admin-login-container input[type="checkbox"] {
+    cursor: pointer;
+    position: relative;
+}
+
+.admin-login-container input[type="checkbox"] + label {
+    cursor: pointer;
+}
+
+/* Password reset link */
+.admin-login-container a {
+    transition: color 0.2s ease;
+}
+
+/* Media queries */
+@media (max-width: 640px) {
+    .admin-login-container {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+    
+    .admin-login-container h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Overlay effect when login panel is active */
+.admin-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.admin-panel-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Dashboard panel transitions */
+#admin-dashboard-panel {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#admin-dashboard-panel.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+/* Error message styles */
+.admin-login-error {
+    background-color: #fed7d7;
+    border-left: 4px solid #f56565;
+    color: #c53030;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+/* Success message styles */
+.admin-login-success {
+    background-color: #c6f6d5;
+    border-left: 4px solid #48bb78;
+    color: #2f855a;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+} 

@@ -1,0 +1,27 @@
+/* Custom styles */
+.sidebar-brand-icon {
+    transform: rotate(-15deg);
+}
+
+.sidebar-brand-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+} 

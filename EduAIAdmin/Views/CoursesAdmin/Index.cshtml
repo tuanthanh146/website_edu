@@ -1,0 +1,39 @@
+@model IEnumerable<EduAIAdmin.Models.Course>
+@{
+    ViewData["Title"] = "Quản lý khóa học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Quản lý khóa học</h1>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Thêm khóa học</a>
+</div>
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Mô tả</th>
+            <th>Môn học</th>
+            <th>Level</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Name</td>
+                <td>@course.Description</td>
+                <td>@course.Subject?.Name</td>
+                <td>@course.Level</td>
+                <td>@course.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = course.Id })" class="btn btn-sm btn-warning">Sửa</a>
+                    <a href="@Url.Action("Delete", new { id = course.Id })" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 

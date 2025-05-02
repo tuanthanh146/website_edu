@@ -1,0 +1,17 @@
+@model EduAIAdmin.Models.User
+@{
+    ViewData["Title"] = "Xóa người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="h3 mb-4 text-gray-800">Xóa người dùng</h1>
+<div class="alert alert-warning">Bạn có chắc chắn muốn xóa người dùng này không?</div>
+<div class="mb-3">
+    <strong>Tên:</strong> @Model.Name <br />
+    <strong>Email:</strong> @Model.Email <br />
+    <strong>Vai trò:</strong> @Model.Role <br />
+</div>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form> 

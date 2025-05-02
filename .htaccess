@@ -1,32 +1,50 @@
 RewriteEngine On
 RewriteBase /WEBSITE_EDUAI/
 
-# Handle API requests
-RewriteRule ^api/auth/google/?$ backend/api/auth/google.php [L,QSA]
-RewriteRule ^api/auth/google/callback/?$ backend/api/auth/google/callback.php [L,QSA]
-RewriteRule ^api/auth/facebook/?$ backend/api/auth/facebook.php [L,QSA]
-RewriteRule ^api/auth/facebook/callback/?$ backend/api/auth/facebook/callback.php [L,QSA]
-RewriteRule ^api/auth/register/?$ backend/api/auth/register.php [L,QSA]
-RewriteRule ^api/auth/login/?$ backend/api/auth/login.php [L,QSA]
+# CORS headers
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+Header always set Access-Control-Max-Age "3600"
 
-# Handle post-related routes
-RewriteRule ^posts/?$ frontend/pages/posts.php [L,QSA]
-RewriteRule ^post/([0-9]+)/?$ frontend/pages/post.php?id=$1 [L,QSA]
-RewriteRule ^create-post/?$ frontend/pages/create-post.php [L,QSA]
+# Handle OPTIONS method
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
 
-# Handle authentication routes
-RewriteRule ^register/?$ frontend/pages/register.php [L,QSA]
-RewriteRule ^login/?$ frontend/pages/login.php [L,QSA]
+# Xử lý API request
+RewriteRule ^api/(.*)$ src/presentation/api.php [QSA,L]
 
-# Handle frontend requests
+# Redirect all other requests to src/presentation
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ frontend/pages/index.php [QSA,L]
+RewriteRule ^(.*)$ src/presentation/$1 [L]
 
-# Enable CORS
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config directory
+<FilesMatch "^(config|bootstrap)\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# PHP settings
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
+php_value max_input_time 300
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect .env file
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
 
 # Error handling
 ErrorDocument 404 /WEBSITE_EDUAI/frontend/pages/404.php
@@ -36,4 +54,7 @@ ErrorDocument 500 /WEBSITE_EDUAI/frontend/pages/500.php
 Header set X-Content-Type-Options "nosniff"
 Header set X-Frame-Options "SAMEORIGIN"
 Header set X-XSS-Protection "1; mode=block"
-Header set Referrer-Policy "strict-origin-when-cross-origin" 
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Set DEEPSEEK_API_KEY
+DEEPSEEK_API_KEY=sk-1ab9682fedc04be589562a0e765de47a

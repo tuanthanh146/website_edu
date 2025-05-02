@@ -1,0 +1,53 @@
+@model EduAIAdmin.Models.Subject
+
+@{
+    ViewData["Title"] = "Xóa môn học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Xóa môn học</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/Home/Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="/SubjectsAdmin/Index">Môn học</a></li>
+        <li class="breadcrumb-item active">Xóa</li>
+    </ol>
+    
+    <div class="card mb-4 border-danger">
+        <div class="card-header bg-danger text-white">
+            <i class="fas fa-exclamation-triangle me-1"></i>
+            Xác nhận xóa môn học
+        </div>
+        <div class="card-body">
+            <h5 class="card-title text-danger">Bạn có chắc chắn muốn xóa môn học này?</h5>
+            <p class="card-text">Thao tác này không thể hoàn tác. Tất cả dữ liệu liên quan đến môn học này có thể bị mất.</p>
+            
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">ID:</div>
+                <div class="col-md-9">@Model.Id</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Tên môn học:</div>
+                <div class="col-md-9">@Model.Name</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Mô tả:</div>
+                <div class="col-md-9">@Model.Description</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">Ngày tạo:</div>
+                <div class="col-md-9">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+            </div>
+            
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Xác nhận xóa
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+            </form>
+        </div>
+    </div>
+</div> 

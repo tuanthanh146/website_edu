@@ -1,0 +1,51 @@
+@model EduAIAdmin.Models.Course
+@{
+    ViewData["Title"] = "Xóa khóa học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Xóa khóa học</h1>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">Bạn có chắc chắn muốn xóa khóa học này?</h4>
+            <p>Hành động này không thể hoàn tác.</p>
+        </div>
+
+        <dl class="row">
+            <dt class="col-sm-2">Tên khóa học</dt>
+            <dd class="col-sm-10">@Model.Name</dd>
+
+            <dt class="col-sm-2">Mô tả</dt>
+            <dd class="col-sm-10">@Model.Description</dd>
+
+            <dt class="col-sm-2">Môn học</dt>
+            <dd class="col-sm-10">@ViewBag.SubjectName</dd>
+
+            <dt class="col-sm-2">Cấp độ</dt>
+            <dd class="col-sm-10">
+                @switch (Model.Level)
+                {
+                    case "Beginner":
+                        <span>Cơ bản</span>
+                        break;
+                    case "Intermediate":
+                        <span>Trung cấp</span>
+                        break;
+                    case "Advanced":
+                        <span>Nâng cao</span>
+                        break;
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div> 
